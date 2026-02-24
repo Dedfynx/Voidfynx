@@ -5,27 +5,57 @@
 
 #include <vk_types.h>
 
-class VulkanEngine {
-public:
+struct FrameData
+{
+    VkCommandPool _commandPool;
+    VkCommandBuffer _mainCommandBuffer;
+    VkSemaphore _swapchainSemaphore, _renderSemaphore;
+    VkFence _renderFence;
+};
 
-	bool _isInitialized{ false };
-	int _frameNumber {0};
-	bool stop_rendering{ false };
-	VkExtent2D _windowExtent{ 1700 , 900 };
+constexpr unsigned int FRAME_OVERLAP = 2;
 
-	struct SDL_Window* _window{ nullptr };
+class VulkanEngine
+{
+    public:
+        bool _isInitialized{false};
+        int _frameNumber{0};
+        bool stop_rendering{false};
+        VkExtent2D _windowExtent{1700, 900};
 
-	static VulkanEngine& Get();
+        struct SDL_Window* _window{nullptr};
 
-	//initializes everything in the engine
-	void init();
+        static VulkanEngine& Get();
 
-	//shuts down the engine
-	void cleanup();
+        VkInstance _instance;                      // Vulkan library handle
+        VkDebugUtilsMessengerEXT _debug_messenger; // Vulkan debug output handle
+        VkPhysicalDevice _chosenGPU;               // GPU chosen as the default device
+        VkDevice _device;                          // Vulkan device for commands
+        VkSurfaceKHR _surface;                     // Vulkan window surface
 
-	//draw loop
-	void draw();
+        VkSwapchainKHR _swapchain;
+        VkFormat _swapchainImageFormat;
+        std::vector<VkImage> _swapchainImages;
+        std::vector<VkImageView> _swapchainImageViews;
+        VkExtent2D _swapchainExtent;
 
-	//run main loop
-	void run();
+        FrameData _frames[FRAME_OVERLAP];
+        FrameData& get_current_frame() { return _frames[_frameNumber % FRAME_OVERLAP]; };
+        VkQueue _graphicsQueue;
+        uint32_t _graphicsQueueFamily;
+
+        void init();    //initializes everything in the engine
+        void cleanup(); //shuts down the engine
+        void draw();    //draw loop
+        void run();     //run main loop
+    private:
+        const char* appName    = "Example Vulkan Application";
+        const char* windowName = "Vulkan Engine";
+
+        void init_vulkan();
+        void init_swapchain();
+        void init_commands();
+        void init_sync_structures();
+        void create_swapchain(uint32_t width, uint32_t height);
+        void destroy_swapchain();
 };
