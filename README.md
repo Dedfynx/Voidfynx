@@ -1,6 +1,6 @@
 # Voidfynx
 
-A Game Engine
+A Game Engine project in C++
 
 
 ## Librairy
@@ -15,3 +15,4 @@ A Game Engine
 
 ### Vulkan
 - [Vkguide](vkguide.dev) - Vulkan Renderer Guide
+- [Vulkan Documentation GE](https://docs.vulkan.org/tutorial/latest/Building_a_Simple_Engine/introduction.html) - Simple Engine
