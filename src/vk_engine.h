@@ -105,12 +105,26 @@ class VulkanEngine
         std::vector<ComputeEffect> backgroundEffects;
         int currentBackgroundEffect{0};
 
+        VkPipelineLayout _trianglePipelineLayout;
+        VkPipeline _trianglePipeline;
+
+        VkPipelineLayout _meshPipelineLayout;
+        VkPipeline _meshPipeline;
+
+        GPUMeshBuffers rectangle;
 
         void init();    //initializes everything in the engine
         void cleanup(); //shuts down the engine
         void draw();    //draw loop
         void draw_background(VkCommandBuffer cmd);
+        void draw_geometry(VkCommandBuffer cmd);
         void run();     //run main loop
+
+        AllocatedBuffer create_buffer(size_t allocSize, VkBufferUsageFlags usage, VmaMemoryUsage memoryUsage);
+        void destroy_buffer(const AllocatedBuffer& buffer);
+
+        GPUMeshBuffers uploadMesh(std::span<uint32_t> indices, std::span<Vertex> vertices);
+
     private:
         const char* appName    = "Example Vulkan Application";
         const char* windowName = "Vulkan Engine";
@@ -126,4 +140,9 @@ class VulkanEngine
         void draw_imgui(VkCommandBuffer cmd, VkImageView targetImageView);
         void create_swapchain(uint32_t width, uint32_t height);
         void destroy_swapchain();
+
+        void init_triangle_pipeline();
+        void init_mesh_pipeline();
+
+        void init_default_data();
 };
