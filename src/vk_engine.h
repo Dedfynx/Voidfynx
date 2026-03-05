@@ -28,11 +28,14 @@ struct DeletionQueue
 
 struct FrameData
 {
-    VkCommandPool _commandPool;
-    VkCommandBuffer _mainCommandBuffer;
     VkSemaphore _swapchainSemaphore, _renderSemaphore;
     VkFence _renderFence;
+
+    VkCommandPool _commandPool;
+    VkCommandBuffer _mainCommandBuffer;
+
     DeletionQueue _deletionQueue;
+    DescriptorAllocatorGrowable _frameDescriptors;
 };
 
 struct ComputePushConstants {
@@ -118,6 +121,9 @@ class VulkanEngine
 
         AllocatedImage _drawImage;
         AllocatedImage _depthImage;
+
+        GPUSceneData sceneData;
+        VkDescriptorSetLayout _gpuSceneDataDescriptorLayout;
 
         void init();    //initializes everything in the engine
         void cleanup(); //shuts down the engine
