@@ -5,6 +5,7 @@
 
 #include <vk_types.h>
 #include <vk_descriptors.h>
+#include <vk_loader.h>
 
 struct DeletionQueue
 {
@@ -85,7 +86,6 @@ class VulkanEngine
 
         VmaAllocator _allocator;
 
-        AllocatedImage _drawImage;
         VkExtent2D _drawExtent;
 
         DescriptorAllocator globalDescriptorAllocator;
@@ -112,6 +112,10 @@ class VulkanEngine
         VkPipeline _meshPipeline;
 
         GPUMeshBuffers rectangle;
+        std::vector<std::shared_ptr<MeshAsset>> testMeshes;
+
+        AllocatedImage _drawImage;
+        AllocatedImage _depthImage;
 
         void init();    //initializes everything in the engine
         void cleanup(); //shuts down the engine
