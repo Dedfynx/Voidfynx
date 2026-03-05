@@ -145,7 +145,6 @@ class VulkanEngine
         void create_swapchain(uint32_t width, uint32_t height);
         void destroy_swapchain();
 
-        void init_triangle_pipeline();
         void init_mesh_pipeline();
 
         void init_default_data();

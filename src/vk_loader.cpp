@@ -19,8 +19,7 @@ std::optional<std::vector<std::shared_ptr<MeshAsset>>> loadGltfMeshes(VulkanEngi
 
     auto data = fastgltf::GltfDataBuffer::FromPath(filePath);
 
-    constexpr auto gltfOptions = fastgltf::Options::LoadGLBBuffers
-        | fastgltf::Options::LoadExternalBuffers;
+    constexpr auto gltfOptions = fastgltf::Options::LoadExternalBuffers;
 
     fastgltf::Asset gltf;
     fastgltf::Parser parser {};
