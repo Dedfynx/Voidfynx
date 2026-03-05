@@ -58,6 +58,7 @@ class VulkanEngine
     public:
         bool _isInitialized{false};
         int _frameNumber{0};
+        bool resize_requested{false};
         bool stop_rendering{false};
         VkExtent2D _windowExtent{1700, 900};
 
@@ -77,6 +78,9 @@ class VulkanEngine
         std::vector<VkImageView> _swapchainImageViews;
         VkExtent2D _swapchainExtent;
 
+        VkExtent2D _drawExtent;
+        float renderScale = 1.f;
+
         FrameData _frames[FRAME_OVERLAP];
         FrameData& get_current_frame() { return _frames[_frameNumber % FRAME_OVERLAP]; };
         VkQueue _graphicsQueue;
@@ -85,8 +89,6 @@ class VulkanEngine
         DeletionQueue _mainDeletionQueue;
 
         VmaAllocator _allocator;
-
-        VkExtent2D _drawExtent;
 
         DescriptorAllocator globalDescriptorAllocator;
 
@@ -143,6 +145,7 @@ class VulkanEngine
         void init_imgui();
         void draw_imgui(VkCommandBuffer cmd, VkImageView targetImageView);
         void create_swapchain(uint32_t width, uint32_t height);
+        void resize_swapchain();
         void destroy_swapchain();
 
         void init_mesh_pipeline();
