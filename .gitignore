@@ -1,3 +1,11 @@
 # Obsidian Notes
-/VoidfynxDocs
+/VoidfynxDocs/
+
+/bin/
+/build/
+.git/
+
+#CLion
+cmake-build-debug/
+.idea/
 
