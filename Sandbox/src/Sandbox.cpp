@@ -3,6 +3,7 @@
 class Sandbox : public Voidfynx::Application {
    public:
     Sandbox() {
+        VF_INFO("Sandbox");
     }
     ~Sandbox() {}
 };

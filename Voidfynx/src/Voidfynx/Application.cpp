@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Voidfynx/Log.h"
 
 namespace Voidfynx {
     Application::Application() {}
@@ -6,13 +7,11 @@ namespace Voidfynx {
 
     void Application::Run() {
         // test logger
-        LOG_INFO("RUN");
-        LOG_DEBUG("Debug");
-        LOG_WARN("Warn");
-        LOG_ERROR("Erreur");
+        VF_CORE_INFO("RUN");
+        VF_CORE_DEBUG("Debug");
+        VF_CORE_WARN("Warn");
+        VF_CORE_ERROR("Erreur");
         //
-        while (true) {
-        }
     }
 
 }  // namespace Voidfynx

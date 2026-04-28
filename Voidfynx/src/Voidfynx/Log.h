@@ -5,27 +5,38 @@
 #include "Core.h"
 
 #ifdef VF_ENABLE_LOGGING
-    #define LOG_INFO(...) Logger::msg(L_INFO, fmt::format(__VA_ARGS__))
-    #define LOG_ERROR(...) Logger::error(fmt::format(__VA_ARGS__))
-    #define LOG_WARN(...) Logger::msg(L_WARN, fmt::format(__VA_ARGS__))
-    #define LOG_DEBUG(...) Logger::msg(L_DEBUG, fmt::format(__VA_ARGS__))
-#else
-    #define LOG_INFO(...)
-    #define LOG_ERROR(...)
-    #define LOG_WARN(...)
-    #define LOG_DEBUG(...)
-#endif
+    #define VF_CORE_INFO(...) Logger::msg(Logger::INFO, "VOIDFYNX", fmt::format(__VA_ARGS__))
+    #define VF_CORE_ERROR(...) Logger::msg(Logger::ERROR, "VOIDFYNX", fmt::format(__VA_ARGS__))
+    #define VF_CORE_WARN(...) Logger::msg(Logger::WARN, "VOIDFYNX", fmt::format(__VA_ARGS__))
+    #define VF_CORE_DEBUG(...) Logger::msg(Logger::DEBUG, "VOIDFYNX", fmt::format(__VA_ARGS__))
 
-typedef enum {
-    L_DEBUG = 0,
-    L_INFO,
-    L_WARN,
-    L_ERROR,
-} log_level_t;
+    #define VF_INFO(...) Logger::msg(Logger::INFO, "APP", fmt::format(__VA_ARGS__))
+    #define VF_ERROR(...) Logger::msg(Logger::ERROR, "APP", fmt::format(__VA_ARGS__))
+    #define VF_WARN(...) Logger::msg(Logger::WARN, "APP", fmt::format(__VA_ARGS__))
+    #define VF_DEBUG(...) Logger::msg(Logger::DEBUG, "APP", fmt::format(__VA_ARGS__))
+
+#else
+    #define VF_CORE_INFO(...)
+    #define VF_CORE_ERROR(...)
+    #define VF_CORE_WARN(...)
+    #define VF_CORE_DEBUG(...)
+
+    #define VF_INFO(...)
+    #define VF_ERROR(...)
+    #define VF_WARN(...)
+    #define VF_DEBUG(...)
+#endif
 
 namespace Logger {
 
-    VF_API void error(const std::string& msg);
-    VF_API void msg(log_level_t level, const std::string& msg);
+    typedef enum {
+        DEBUG = 0,
+        INFO,
+        WARN,
+        ERROR,
+        NI,
+    } log_level_t;
+
+    VF_API void msg(log_level_t level, const std::string& system, const std::string& msg);
     // TODO Log dans un fichier
 };  // namespace Logger
