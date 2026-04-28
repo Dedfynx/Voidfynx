@@ -1,7 +1,4 @@
 #include "Voidfynx/Log.h"
-#include <chrono>
-#include <iomanip>
-#include <sstream>
 #include <fmt/color.h>
 
 static const char* level_str[] = {
