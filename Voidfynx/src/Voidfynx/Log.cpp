@@ -1,5 +1,9 @@
+#include "vf_pch.h"
+
 #include "Voidfynx/Log.h"
 #include <fmt/color.h>
+#include <fmt/chrono.h>
+#include <chrono>
 
 static const char* level_str[] = {
     "DEBUG",
@@ -14,8 +18,13 @@ static fmt::color level_color[] = {
     fmt::color::red,
 };
 
-void Logger::msg(log_level_t level, const std::string& system, const std::string& msg) {
+void Logger::log_internal(log_level_t level, const std::string& system, fmt::string_view format, fmt::format_args args) {
     if (level < 0 || level >= Logger::LAST) return;
+
     FILE* target = (level == Logger::ERROR) ? stderr : stdout;
-    fmt::print(target, fmt::fg(level_color[level]), "[{}] [{}] {}\n", level_str[level], system, msg);
+    auto now = std::chrono::floor<std::chrono::milliseconds>(std::chrono::system_clock::now());
+
+    fmt::print(target, fmt::fg(level_color[level]), "[{:%H:%M:%S}] [{}] [{}] ", now, level_str[level], system);
+    fmt::vprint(target, format, args);
+    fmt::print(target, "\n");
 }

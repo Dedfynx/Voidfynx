@@ -1,5 +1,5 @@
 #pragma once
-#include "../vxpch.h"
+#include "Voidfynx/Core.h"
 
 namespace Voidfynx {
     class VF_API Application {
