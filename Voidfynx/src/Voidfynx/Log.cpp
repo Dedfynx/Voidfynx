@@ -15,7 +15,7 @@ static fmt::color level_color[] = {
 };
 
 void Logger::msg(log_level_t level, const std::string& system, const std::string& msg) {
-    if (level < 0 || level >= Logger::NI) return;
+    if (level < 0 || level >= Logger::LAST) return;
     FILE* target = (level == Logger::ERROR) ? stderr : stdout;
     fmt::print(target, fmt::fg(level_color[level]), "[{}] [{}] {}\n", level_str[level], system, msg);
 }

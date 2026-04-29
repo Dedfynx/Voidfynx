@@ -34,7 +34,7 @@ namespace Logger {
         INFO,
         WARN,
         ERROR,
-        NI,
+        LAST,
     } log_level_t;
 
     VF_API void msg(log_level_t level, const std::string& system, const std::string& msg);
