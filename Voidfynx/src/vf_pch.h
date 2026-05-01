@@ -1,6 +1,7 @@
 #pragma once
 // IWYU pragma: begin_keep
 #include "Voidfynx/Core.h"
+#include "Voidfynx/Log.h"
 
 #include <string>
 #include <sstream>

@@ -12,6 +12,18 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 
+# download CPM.cmake
+set(CPM_LOCATION "${CMAKE_SOURCE_DIR}/cmake/CPM.cmake")
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/cmake/CPM.cmake")
+	message(STATUS "Downloading CPM.cmake")
+	file(	DOWNLOAD
+  		https://github.com/cpm-cmake/CPM.cmake/releases/download/v0.40.8/CPM.cmake
+		${CPM_LOCATION}
+  		EXPECTED_HASH SHA256=78ba32abdf798bc616bab7c73aac32a17bbd7b06ad9e26a6add69de8f3ae4791
+	)
+endif()
+include(${CPM_LOCATION})
+
 
 if(WIN32)
     add_definitions(-DVF_PLATFORM_WINDOWS)

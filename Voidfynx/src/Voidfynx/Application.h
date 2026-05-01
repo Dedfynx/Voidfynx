@@ -1,5 +1,7 @@
 #pragma once
 #include "Voidfynx/Core.h"
+#include "Voidfynx/Window.h"
+#include <memory>
 
 namespace Voidfynx {
     class VF_API Application {
@@ -8,6 +10,10 @@ namespace Voidfynx {
         virtual ~Application();
 
         void Run();
+
+       private:
+        std::unique_ptr<Window> m_Window;
+        bool m_Running = true;
     };
 
     // To be defined in client

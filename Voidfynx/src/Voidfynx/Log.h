@@ -7,12 +7,12 @@
 
 #ifdef VF_ENABLE_LOGGING
     #define VF_CORE_INFO(...) Logger::msg(Logger::INFO, "VOIDFYNX", __VA_ARGS__)
-    #define VF_CORE_ERROR(...) Logger::msg(Logger::ERROR, "VOIDFYNX", __VA_ARGS__)
+    #define VF_CORE_ERROR(...) Logger::msg(Logger::ERREUR, "VOIDFYNX", __VA_ARGS__)
     #define VF_CORE_WARN(...) Logger::msg(Logger::WARN, "VOIDFYNX", __VA_ARGS__)
     #define VF_CORE_DEBUG(...) Logger::msg(Logger::DEBUG, "VOIDFYNX", __VA_ARGS__)
 
     #define VF_INFO(...) Logger::msg(Logger::INFO, "APP", __VA_ARGS__)
-    #define VF_ERROR(...) Logger::msg(Logger::ERROR, "APP", __VA_ARGS__)
+    #define VF_ERROR(...) Logger::msg(Logger::ERREUR, "APP", __VA_ARGS__)
     #define VF_WARN(...) Logger::msg(Logger::WARN, "APP", __VA_ARGS__)
     #define VF_DEBUG(...) Logger::msg(Logger::DEBUG, "APP", __VA_ARGS__)
 
@@ -34,7 +34,7 @@ namespace Logger {
         DEBUG = 0,
         INFO,
         WARN,
-        ERROR,
+        ERREUR,
         LAST,
     } log_level_t;
 

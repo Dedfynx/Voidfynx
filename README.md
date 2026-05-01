@@ -10,7 +10,8 @@ Projet de Moteur de Jeux en C++
 
 ## Dependances
 
-[{fmt}](fmt.dev) - A modern formatting library
+[{fmt}](fmt.dev) - Formatage de texte
+[GLFW](https://www.glfw.org/) - Fenêtrage, gestion du contexte OpenGL et entrées utilisateur
 
 ---
 

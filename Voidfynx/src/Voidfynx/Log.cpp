@@ -21,7 +21,7 @@ static fmt::color level_color[] = {
 void Logger::log_internal(log_level_t level, const std::string& system, fmt::string_view format, fmt::format_args args) {
     if (level < 0 || level >= Logger::LAST) return;
 
-    FILE* target = (level == Logger::ERROR) ? stderr : stdout;
+    FILE* target = (level == Logger::ERREUR) ? stderr : stdout;
     auto now = std::chrono::floor<std::chrono::milliseconds>(std::chrono::system_clock::now());
 
     fmt::print(target, fmt::fg(level_color[level]), "[{:%H:%M:%S}] [{}] [{}] ", now, level_str[level], system);
