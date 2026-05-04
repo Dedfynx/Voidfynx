@@ -1,4 +1,4 @@
-#include "vf_pch.h"
+#include "vf_pch.h"  // IWYU pragma: keep
 
 #include "Voidfynx/Log.h"
 #include <fmt/color.h>

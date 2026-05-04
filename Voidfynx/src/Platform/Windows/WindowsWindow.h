@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Voidfynx/Window.h"
-#include "Voidfynx/Log.h"
 
 #include <GLFW/glfw3.h>
 

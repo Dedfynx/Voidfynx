@@ -1,4 +1,4 @@
-#include "vf_pch.h"
+#include "vf_pch.h"  // IWYU pragma: keep
 #include "Platform/Windows/WindowsWindow.h"
 
 namespace Voidfynx {

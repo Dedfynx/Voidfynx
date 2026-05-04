@@ -1,4 +1,4 @@
-#include "vf_pch.h"
+#include "vf_pch.h"  // IWYU pragma: keep
 #include "Voidfynx/Application.h"
 #include <GLFW/glfw3.h>
 
@@ -15,7 +15,7 @@ namespace Voidfynx {
         VF_CORE_WARN("Warn");
         VF_CORE_ERROR("Erreur");
         while (m_Running) {
-            glClearColor(1, 0, 1, 1);
+            glClearColor(1, 1, 0, 1);
             glClear(GL_COLOR_BUFFER_BIT);
             m_Window->OnUpdate();
         }

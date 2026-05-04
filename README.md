@@ -21,7 +21,7 @@ Projet de Moteur de Jeux en C++
 
 - [x] Logger (avec fmt)
 - [x] Event System
-- [ ] Windowing (GLFW)
+- [x] Windowing (GLFW)
 - [ ] Layer Stack
 
 ### Renderer
