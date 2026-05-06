@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Voidfynx/Application.h"
+#include "Voidfynx/Core/Application.h"
 
 #ifdef VF_PLATFORM_WINDOWS
 // TODO: winmain plutot que main

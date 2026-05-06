@@ -1,5 +1,5 @@
 #include "vf_pch.h"  // IWYU pragma: keep
-#include "Voidfynx/Application.h"
+#include "Voidfynx/Core/Application.h"
 #include <GLFW/glfw3.h>
 #include <functional>
 

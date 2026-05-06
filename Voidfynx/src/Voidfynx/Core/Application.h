@@ -1,6 +1,6 @@
 #pragma once
-#include "Voidfynx/Core.h"
-#include "Voidfynx/Window.h"
+#include "Voidfynx/Core/Core.h"
+#include "Voidfynx/Core/Window.h"
 #include "Voidfynx/Event/Event.h"
 #include "Voidfynx/Event/ApplicationEvent.h"
 #include <memory>

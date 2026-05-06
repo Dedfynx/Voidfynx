@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "Voidfynx/Core.h"
+#include "Voidfynx/Core/Core.h"
 
 namespace Voidfynx {
     enum class EventType {

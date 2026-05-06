@@ -1,5 +1,3 @@
-#include "GLFW/glfw3.h"
-#include "Voidfynx/Log.h"
 #include "vf_pch.h"  // IWYU pragma: keep
 #include "Platform/Windows/WindowsWindow.h"
 #include "Voidfynx/Event/KeyEvent.h"

@@ -1,6 +1,6 @@
 #include "vf_pch.h"  // IWYU pragma: keep
 
-#include "Voidfynx/Log.h"
+#include "Voidfynx/Core/Log.h"
 #include <fmt/color.h>
 #include <fmt/chrono.h>
 #include <chrono>
