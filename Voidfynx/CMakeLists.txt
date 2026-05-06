@@ -1,5 +1,5 @@
 option(VF_ENABLE_LOGGING "Enable logging system" ON)
-option(VF_ENABLE_ASSERTS "Enable assertion system" ON)
+option(VF_ENABLE_DEBUG   "Enable debug system"   ON)
 
 #Lib 
 find_package(OpenGL REQUIRED)

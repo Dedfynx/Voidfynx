@@ -19,9 +19,15 @@ namespace Voidfynx {
         VF_CORE_DEBUG("Debug");
         VF_CORE_WARN("Warn");
         VF_CORE_ERROR("Erreur");
+        //
         while (m_Running) {
             glClearColor(1, 1, 0, 1);
             glClear(GL_COLOR_BUFFER_BIT);
+
+            for (Layer* layer : m_LayerStack) {
+                layer->OnUpdate();
+            }
+
             m_Window->OnUpdate();
         }
         //
@@ -31,11 +37,26 @@ namespace Voidfynx {
         // VF_CORE_INFO("{}", e.ToString());
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+
+        for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
+            (*--it)->OnEvent(e);
+            if (e.Handled) {
+                break;
+            }
+        }
     }
 
     bool Application::OnWindowClosed(WindowCloseEvent& e) {
         m_Running = false;
         return true;
+    }
+
+    void Application::PushLayer(Layer* layer) {
+        m_LayerStack.PushLayer(layer);
+    }
+
+    void Application::PushOverlay(Layer* overlay) {
+        m_LayerStack.PushOverlay(overlay);
     }
 
 }  // namespace Voidfynx
