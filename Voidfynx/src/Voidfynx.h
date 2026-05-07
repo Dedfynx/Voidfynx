@@ -3,6 +3,7 @@
 #include "Voidfynx/Core/Application.h"
 #include "Voidfynx/Core/Log.h"
 #include "Voidfynx/Core/Layer.h"
+#include "Voidfynx/ImGui/ImGuiLayer.h"
 
 // EntryPoint
 #include "Voidfynx/Core/EntryPoint.h"

@@ -1,4 +1,7 @@
 #include "vf_pch.h"  // IWYU pragma: keep
+
+#include <glad/glad.h>
+
 #include "Platform/Windows/WindowsWindow.h"
 #include "Voidfynx/Event/KeyEvent.h"
 #include "Voidfynx/Event/ApplicationEvent.h"
@@ -38,6 +41,10 @@ namespace Voidfynx {
         }
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(m_Window);
+
+        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        VF_CORE_ASSERT(status, "Failed to initialize GLAD!");
+
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);
 

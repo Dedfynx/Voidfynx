@@ -12,6 +12,7 @@ Projet de Moteur de Jeux en C++
 
 [{fmt}](fmt.dev) - Formatage de texte
 [GLFW](https://www.glfw.org/) - Fenêtrage, gestion du contexte OpenGL et entrées utilisateur
+[GLAD](https://glad.dav1d.de/) - OpenGL loader
 
 ---
 
@@ -22,7 +23,7 @@ Projet de Moteur de Jeux en C++
 - [x] Logger (avec fmt)
 - [x] Event System
 - [x] Windowing (GLFW)
-- [ ] Layer Stack
+- [x] Layer Stack
 
 ### Renderer
 

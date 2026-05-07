@@ -6,9 +6,9 @@ class ExampleLayer : public Voidfynx::Layer {
    public:
     ExampleLayer() : Layer("Example") {}
     void OnUpdate() override {
-        VF_INFO("ExampleLayer::Update");
+        // VF_INFO("ExampleLayer::Update");
     }
     void OnEvent(Voidfynx::Event& event) override {
-        VF_INFO("{}", event.ToString());
+        // VF_INFO("{}", event.ToString());
     }
 };
