@@ -27,8 +27,8 @@ Projet de Moteur de Jeux en C++
 
 ### Renderer
 
-- [ ] Render API
-    - [ ] OpenGL
+- [x] Render API
+    - [x] OpenGL
     - [ ] Vulkan
     - [ ] DirectX
 - [ ] Buffer Management
@@ -36,7 +36,7 @@ Projet de Moteur de Jeux en C++
 
 ### Tools
 
-- [ ] Integration ImGUI
+- [x] Integration ImGUI
 
 ### Game system
 
