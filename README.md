@@ -4,15 +4,16 @@ Projet de Moteur de Jeux en C++
 
 ![C++ Version](https://img.shields.io/badge/C%2B%2B-20-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![Linux Build](https://img.shields.io/badge/Linux-passing-success?logo=linux&logoColor=white)
+![Windows Build](https://img.shields.io/badge/Windows-passing-success?logo=windows&logoColor=white)
 
 ---
 
 ## Dependances
 
-[{fmt}](fmt.dev) - Formatage de texte
-[GLFW](https://www.glfw.org/) - Fenêtrage, gestion du contexte OpenGL et entrées utilisateur
-[GLAD](https://glad.dav1d.de/) - OpenGL loader
+- [{fmt}](fmt.dev) - Formatage de texte
+- [GLFW](https://www.glfw.org/) - Fenêtrage, gestion du contexte OpenGL et entrées utilisateur
+- [GLAD](https://glad.dav1d.de/) - OpenGL loader
 
 ---
 
