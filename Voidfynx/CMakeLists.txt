@@ -22,6 +22,23 @@ CPMAddPackage(
           "GLFW_BUILD_DOCS OFF"
 )
 
+## Freetype
+CPMAddPackage(
+		NAME freetype
+		GIT_REPOSITORY https://github.com/freetype/freetype.git
+		GIT_TAG VER-2-14-3
+		VERSION 2.14.3
+		OPTIONS
+		"FT_DISABLE_ZLIB TRUE"
+		"FT_DISABLE_BZIP2 TRUE"
+		"FT_DISABLE_PNG TRUE"
+		"FT_DISABLE_HARFBUZZ TRUE"
+)
+
+if (freetype_ADDED)
+	add_library(Freetype::Freetype ALIAS freetype)
+endif()
+
 ## ImGui
 CPMAddPackage(
   NAME imgui
