@@ -7,7 +7,6 @@ class Sandbox : public Voidfynx::Application {
     Sandbox() {
         VF_INFO("Sandbox");
         PushLayer(new ExampleLayer());
-        PushOverlay(new Voidfynx::ImGuiLayer());
     }
     ~Sandbox() {}
 };

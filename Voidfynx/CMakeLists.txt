@@ -70,6 +70,7 @@ add_subdirectory(${imgui_SOURCE_DIR} "${CMAKE_CURRENT_BINARY_DIR}/imgui" EXCLUDE
 set(IMGUI_BACKENDS
     ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
     ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+		src/Voidfynx/ImGui/ImGuiBuild.cpp
 )
 ######
 
