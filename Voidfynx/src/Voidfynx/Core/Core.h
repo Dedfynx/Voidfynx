@@ -47,3 +47,6 @@
 #endif
 
 #define BIT(x) (1 << x)
+
+//Je vais suivre TheCherno pour l'instant mais des lambda sont recommandé à la place de bind
+#define VF_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

@@ -41,10 +41,10 @@ endif()
 
 ## ImGui
 CPMAddPackage(
-  NAME imgui
-  VERSION 1.91.1
-  GITHUB_REPOSITORY ocornut/imgui
-  DOWNLOAD_ONLY TRUE
+		NAME imgui
+		GIT_REPOSITORY https://github.com/ocornut/imgui.git
+		GIT_TAG docking
+		DOWNLOAD_ONLY TRUE
 )
 
 # CMakeLists.txt from https://gist.githubusercontent.com/rokups/f771217b2d530d170db5cb1e08e9a8f4
