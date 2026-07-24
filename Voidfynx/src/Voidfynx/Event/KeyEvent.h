@@ -4,7 +4,7 @@
 #include <sstream>
 
 namespace Voidfynx {
-    class KeyEvent : public Event {
+    class VF_API KeyEvent : public Event {
        public:
         KeyCode GetKeyCode() const { return m_KeyCode; }
 
@@ -16,7 +16,7 @@ namespace Voidfynx {
         KeyCode m_KeyCode;
     };
 
-    class KeyPressedEvent : public KeyEvent {
+    class VF_API KeyPressedEvent : public KeyEvent {
        public:
         KeyPressedEvent(const KeyCode keycode, bool isRepeat = false)
             : KeyEvent(keycode), m_IsRepeat(isRepeat) {}
@@ -34,7 +34,7 @@ namespace Voidfynx {
         bool m_IsRepeat;
     };
 
-    class KeyReleasedEvent : public KeyEvent {
+    class VF_API KeyReleasedEvent : public KeyEvent {
        public:
         KeyReleasedEvent(const KeyCode keycode)
             : KeyEvent(keycode) {}
@@ -47,4 +47,20 @@ namespace Voidfynx {
 
         EVENT_CLASS_TYPE(KeyReleased)
     };
+
+    class VF_API KeyTypedEvent : public KeyEvent
+    {
+        public:
+            KeyTypedEvent(int keycode)
+                : KeyEvent(keycode) {}
+
+            std::string ToString() const override
+            {
+                std::stringstream ss;
+                ss << "KeyTypedEvent: " << m_KeyCode;
+                return ss.str();
+            }
+
+            EVENT_CLASS_TYPE(KeyTyped)
+        };
 }  // namespace Voidfynx

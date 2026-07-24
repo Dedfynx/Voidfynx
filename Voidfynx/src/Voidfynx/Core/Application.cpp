@@ -3,6 +3,8 @@
 #include <GLFW/glfw3.h>
 #include <functional>
 
+#include "Input.h"
+
 namespace Voidfynx {
 
     Application* Application::s_Instance = nullptr;
