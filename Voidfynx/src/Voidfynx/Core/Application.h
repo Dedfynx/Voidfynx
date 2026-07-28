@@ -4,7 +4,6 @@
 #include "Voidfynx/Event/Event.h"
 #include "Voidfynx/Event/ApplicationEvent.h"
 #include "Voidfynx/Core/LayerStack.h"
-
 #include "Voidfynx/ImGui/ImGuiLayer.h"
 
 #include <memory>

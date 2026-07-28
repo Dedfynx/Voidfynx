@@ -2,6 +2,8 @@
 // Created by Dedfynx on 24/07/2026.
 //
 
+//TODO : refactor vers Input.cpp, pas besoins de changement entre les plateformes pour l'instant.
+
 #include "vf_pch.h" // Ton precompiled header
 #include "Voidfynx/Core/Input.h"
 

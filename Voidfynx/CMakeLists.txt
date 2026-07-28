@@ -22,6 +22,12 @@ CPMAddPackage(
           "GLFW_BUILD_DOCS OFF"
 )
 
+CPMAddPackage(
+		NAME glm
+		GITHUB_REPOSITORY g-truc/glm
+		GIT_TAG 1.0.3
+)
+
 ## Freetype
 CPMAddPackage(
 		NAME freetype
@@ -95,5 +101,5 @@ if(VF_ENABLE_ASSERTS)
 endif()
 
 
-target_link_libraries(Voidfynx PUBLIC fmt::fmt glfw OpenGL::GL glad imgui)
+target_link_libraries(Voidfynx PUBLIC fmt::fmt glfw OpenGL::GL glad imgui glm::glm-header-only)
 
