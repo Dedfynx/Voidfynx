@@ -85,11 +85,11 @@ add_subdirectory(third_party/GLAD)
 #Src files
 file(GLOB_RECURSE ENGINE_SOURCES "src/*.cpp" "src/*.h")
 
-add_library(Voidfynx SHARED ${ENGINE_SOURCES} ${IMGUI_BACKENDS})
+add_library(Voidfynx STATIC ${ENGINE_SOURCES} ${IMGUI_BACKENDS})
 target_include_directories(Voidfynx PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
 target_precompile_headers(Voidfynx PRIVATE "src/vf_pch.h")
 
-target_compile_definitions(Voidfynx PRIVATE VF_BUILD_DLL)
+#target_compile_definitions(Voidfynx PRIVATE VF_BUILD_DLL)
 
 #Options
 if(VF_ENABLE_LOGGING)

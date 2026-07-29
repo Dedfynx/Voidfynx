@@ -2,6 +2,8 @@
 
 #include "Voidfynx/Core/Layer.h"
 
+#include <vector>
+
 namespace Voidfynx {
     class VF_API LayerStack {
         public:

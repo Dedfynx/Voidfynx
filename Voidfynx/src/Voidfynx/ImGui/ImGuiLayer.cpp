@@ -17,6 +17,7 @@ namespace Voidfynx {
     ImGuiLayer::~ImGuiLayer() {}
 
     void ImGuiLayer::OnAttach() {
+        VF_CORE_INFO("ImGui Context Created");
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
 
