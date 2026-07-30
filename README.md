@@ -14,6 +14,7 @@ Projet de Moteur de Jeux en C++
 - [{fmt}](fmt.dev) - Formatage de texte
 - [GLFW](https://www.glfw.org/) - Fenêtrage, gestion du contexte OpenGL et entrées utilisateur
 - [GLAD](https://glad.dav1d.de/) - OpenGL loader
+- [Dear ImGui](https://github.com/ocornut/imgui) - Bloat-free Graphical User interface for C++
 
 ---
 
