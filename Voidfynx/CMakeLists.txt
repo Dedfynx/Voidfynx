@@ -1,5 +1,5 @@
 option(VF_ENABLE_LOGGING "Enable logging system" ON)
-option(VF_ENABLE_DEBUG   "Enable debug system"   ON)
+option(VF_ENABLE_DEBUG "Enable debug system" ON)
 
 #Lib 
 find_package(OpenGL REQUIRED)
@@ -7,9 +7,9 @@ find_package(OpenGL REQUIRED)
 ## {fmt}
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 CPMAddPackage(
-  NAME fmt
-  GIT_TAG 12.1.0
-  GITHUB_REPOSITORY fmtlib/fmt
+        NAME fmt
+        GIT_TAG 12.1.0
+        GITHUB_REPOSITORY fmtlib/fmt
 )
 ## GLFW
 CPMAddPackage(
@@ -17,48 +17,48 @@ CPMAddPackage(
         GITHUB_REPOSITORY glfw/glfw
         GIT_TAG 3.4
         OPTIONS
-          "GLFW_BUILD_TESTS OFF"
-          "GLFW_BUILD_EXAMPLES OFF"
-          "GLFW_BUILD_DOCS OFF"
+        "GLFW_BUILD_TESTS OFF"
+        "GLFW_BUILD_EXAMPLES OFF"
+        "GLFW_BUILD_DOCS OFF"
 )
 
 CPMAddPackage(
-		NAME glm
-		GITHUB_REPOSITORY g-truc/glm
-		GIT_TAG 1.0.3
+        NAME glm
+        GITHUB_REPOSITORY g-truc/glm
+        GIT_TAG 1.0.3
 )
 
 ## Freetype
 CPMAddPackage(
-		NAME freetype
-		GIT_REPOSITORY https://github.com/freetype/freetype.git
-		GIT_TAG VER-2-14-3
-		VERSION 2.14.3
-		OPTIONS
-		"FT_DISABLE_ZLIB TRUE"
-		"FT_DISABLE_BZIP2 TRUE"
-		"FT_DISABLE_PNG TRUE"
-		"FT_DISABLE_HARFBUZZ TRUE"
+        NAME freetype
+        GIT_REPOSITORY https://github.com/freetype/freetype.git
+        GIT_TAG VER-2-14-3
+        VERSION 2.14.3
+        OPTIONS
+        "FT_DISABLE_ZLIB TRUE"
+        "FT_DISABLE_BZIP2 TRUE"
+        "FT_DISABLE_PNG TRUE"
+        "FT_DISABLE_HARFBUZZ TRUE"
 )
 
 if (freetype_ADDED)
-	add_library(Freetype::Freetype ALIAS freetype)
-endif()
+    add_library(Freetype::Freetype ALIAS freetype)
+endif ()
 
 ## ImGui
 CPMAddPackage(
-		NAME imgui
-		GIT_REPOSITORY https://github.com/ocornut/imgui.git
-		GIT_TAG docking
-		DOWNLOAD_ONLY TRUE
+        NAME imgui
+        GIT_REPOSITORY https://github.com/ocornut/imgui.git
+        GIT_TAG docking
+        DOWNLOAD_ONLY TRUE
 )
 
 # CMakeLists.txt from https://gist.githubusercontent.com/rokups/f771217b2d530d170db5cb1e08e9a8f4
 file(
-  DOWNLOAD
-  "https://gist.githubusercontent.com/rokups/f771217b2d530d170db5cb1e08e9a8f4/raw/4c2c14374ab878ca2f45daabfed4c156468e4e27/CMakeLists.txt"
-  "${imgui_SOURCE_DIR}/CMakeLists.txt"
-  EXPECTED_HASH SHA256=fd62f69364ce13a4f7633a9b50ae6672c466bcc44be60c69c45c0c6e225bb086
+        DOWNLOAD
+        "https://gist.githubusercontent.com/rokups/f771217b2d530d170db5cb1e08e9a8f4/raw/4c2c14374ab878ca2f45daabfed4c156468e4e27/CMakeLists.txt"
+        "${imgui_SOURCE_DIR}/CMakeLists.txt"
+        EXPECTED_HASH SHA256=fd62f69364ce13a4f7633a9b50ae6672c466bcc44be60c69c45c0c6e225bb086
 )
 
 # Options
@@ -74,8 +74,8 @@ set(FREETYPE_LIBRARIES Freetype::Freetype)
 add_subdirectory(${imgui_SOURCE_DIR} "${CMAKE_CURRENT_BINARY_DIR}/imgui" EXCLUDE_FROM_ALL SYSTEM)
 
 set(IMGUI_BACKENDS
-    ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
-    ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
 )
 ######
 
@@ -92,13 +92,13 @@ target_precompile_headers(Voidfynx PRIVATE "src/vf_pch.h")
 #target_compile_definitions(Voidfynx PRIVATE VF_BUILD_DLL)
 
 #Options
-if(VF_ENABLE_LOGGING)
-	target_compile_definitions(Voidfynx PUBLIC VF_ENABLE_LOGGING)
-endif()
+if (VF_ENABLE_LOGGING)
+    target_compile_definitions(Voidfynx PUBLIC VF_ENABLE_LOGGING)
+endif ()
 
-if(VF_ENABLE_ASSERTS)
-	target_compile_definitions(Voidfynx PUBLIC VF_ENABLE_ASSERTS)
-endif()
+if (VF_ENABLE_ASSERTS)
+    target_compile_definitions(Voidfynx PUBLIC VF_ENABLE_ASSERTS)
+endif ()
 
 
 target_link_libraries(Voidfynx PUBLIC fmt::fmt glfw OpenGL::GL glad imgui glm::glm-header-only)

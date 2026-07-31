@@ -3,13 +3,13 @@
 #include "ExampleLayer.h"
 
 class Sandbox : public Voidfynx::Application {
-    public:
-        Sandbox() {
-            VF_INFO("Sandbox");
-            PushLayer(new ExampleLayer());
-        }
+   public:
+    Sandbox() {
+        VF_INFO("Sandbox");
+        PushLayer(new ExampleLayer());
+    }
 
-        ~Sandbox() {}
+    ~Sandbox() {}
 };
 
 Voidfynx::Application* Voidfynx::CreateApplication() { return new Sandbox(); }

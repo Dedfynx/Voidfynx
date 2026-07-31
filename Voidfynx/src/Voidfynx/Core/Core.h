@@ -1,11 +1,11 @@
 #pragma once
 
-//TODO: Clean les VF_API, on est passé en static
+// TODO: Clean les VF_API, on est passé en static
 #ifdef VF_PLATFORM_WINDOWS
     #ifdef VF_BUILD_DLL
-        #define VF_API //__declspec(dllexport)
+        #define VF_API  //__declspec(dllexport)
     #else
-        #define VF_API //__declspec(dllimport)
+        #define VF_API  //__declspec(dllimport)
     #endif
 #else
     #define VF_API
@@ -49,5 +49,4 @@
 
 #define BIT(x) (1 << x)
 
-//Je vais suivre TheCherno pour l'instant mais des lambda sont recommandé à la place de bind
-#define VF_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+#define VF_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }

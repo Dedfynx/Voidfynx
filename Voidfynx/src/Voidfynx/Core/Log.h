@@ -10,35 +10,45 @@
     #define VF_CORE_ERROR(...) Logger::msg(Logger::ERREUR, "VOIDFYNX", __VA_ARGS__)
     #define VF_CORE_WARN(...) Logger::msg(Logger::WARN, "VOIDFYNX", __VA_ARGS__)
     #define VF_CORE_DEBUG(...) Logger::msg(Logger::DEBUG, "VOIDFYNX", __VA_ARGS__)
+    #define VF_CORE_TRACE(...) Logger::msg(Logger::TRACE, "VOIDFYNX", __VA_ARGS__)
+    #define VF_CORE_FATAL(...) Logger::msg(Logger::FATAL, "VOIDFYNX", __VA_ARGS__)
 
     #define VF_INFO(...) Logger::msg(Logger::INFO, "APP", __VA_ARGS__)
     #define VF_ERROR(...) Logger::msg(Logger::ERREUR, "APP", __VA_ARGS__)
     #define VF_WARN(...) Logger::msg(Logger::WARN, "APP", __VA_ARGS__)
     #define VF_DEBUG(...) Logger::msg(Logger::DEBUG, "APP", __VA_ARGS__)
+    #define VF_TRACE(...) Logger::msg(Logger::TRACE, "APP", __VA_ARGS__)
+    #define VF_FATAL(...) Logger::msg(Logger::FATAL, "APP", __VA_ARGS__)
 
 #else
     #define VF_CORE_INFO(...)
     #define VF_CORE_ERROR(...)
     #define VF_CORE_WARN(...)
     #define VF_CORE_DEBUG(...)
+    #define VF_CORE_TRACE(...)
+    #define VF_CORE_FATAL(...)
 
     #define VF_INFO(...)
     #define VF_ERROR(...)
     #define VF_WARN(...)
     #define VF_DEBUG(...)
+    #define VF_TRACE(...)
+    #define VF_FATAL(...)
 #endif
 
 namespace Logger {
-
     typedef enum {
         DEBUG = 0,
         INFO,
         WARN,
         ERREUR,
+        TRACE,
+        FATAL,
         LAST,
     } log_level_t;
 
-    VF_API void log_internal(log_level_t level, const std::string& system, fmt::string_view format, fmt::format_args args);
+    VF_API void log_internal(log_level_t level, const std::string& system, fmt::string_view format,
+        fmt::format_args args);
 
     template <typename... Args>
     void msg(log_level_t level, const std::string& system, fmt::format_string<Args...> fmt_str, Args&&... args) {

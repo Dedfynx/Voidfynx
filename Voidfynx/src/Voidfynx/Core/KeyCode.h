@@ -140,5 +140,4 @@ namespace Voidfynx {
         };
     }
 
-
 }  // namespace Voidfynx

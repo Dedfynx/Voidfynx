@@ -52,6 +52,7 @@ Projet de Moteur de Jeux en C++
 
 ## Ressources
 
-[Game Engine Serie](https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT) - Game Engine Guide by TheCherno
+[Game Engine Serie](https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT) - Game Engine
+Guide by TheCherno
 
 ---
