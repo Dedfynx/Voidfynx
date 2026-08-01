@@ -1,8 +1,7 @@
 #include "vf_pch.h"  // IWYU pragma: keep
 
-#include <glad/glad.h>
-
 #include "Platform/Windows/WindowsWindow.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 #include "Voidfynx/Event/KeyEvent.h"
 #include "Voidfynx/Event/ApplicationEvent.h"
 #include "Voidfynx/Event/MouseEvent.h"
@@ -40,10 +39,10 @@ namespace Voidfynx {
             s_GLFWInitialized = true;
         }
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-        glfwMakeContextCurrent(m_Window);
 
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        VF_CORE_ASSERT(status, "Failed to initialize GLAD!");
+        // OpenGLcontext/VulkanContext/DirextX/....
+        m_Context = new OpenGLContext(m_Window);
+        m_Context->Init();
 
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);
@@ -128,7 +127,7 @@ namespace Voidfynx {
 
     void WindowsWindow::OnUpdate() {
         glfwPollEvents();
-        glfwSwapBuffers(m_Window);
+        m_Context->SwapBuffers();
     }
 
     void WindowsWindow::SetVSync(bool enabled) {

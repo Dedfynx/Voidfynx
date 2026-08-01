@@ -1,10 +1,9 @@
 #pragma once
 
 #include "Voidfynx/Core/Window.h"
+#include "Voidfynx/Renderer/GraphicsContext.h"
 
-#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-
 namespace Voidfynx {
 
     class WindowsWindow : public Window {
@@ -29,6 +28,7 @@ namespace Voidfynx {
         virtual void Shutdown();
 
         GLFWwindow* m_Window;
+        GraphicsContext* m_Context;
 
         struct WindowData {
             std::string Title;
