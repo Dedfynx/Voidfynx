@@ -5,6 +5,7 @@
 #include "Voidfynx/Event/ApplicationEvent.h"
 #include "Voidfynx/Core/LayerStack.h"
 #include "Voidfynx/ImGui/ImGuiLayer.h"
+#include "Voidfynx/Renderer/Shader.h"
 
 #include <memory>
 
@@ -33,6 +34,8 @@ namespace Voidfynx {
 
         LayerStack m_LayerStack;
         uint32_t m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+        std::unique_ptr<Shader> m_Shader;
+
         static Application* s_Instance;
     };
 
