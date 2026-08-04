@@ -33,8 +33,10 @@ Projet de Moteur de Jeux en C++
     - [x] OpenGL
     - [ ] Vulkan
     - [ ] DirectX
-- [ ] Buffer Management
-- [ ] Shaders
+- [x] Shaders
+    - [ ] GLSL
+    - [ ] HLSL
+    - [ ] SPIR-V
 
 ### Tools
 
