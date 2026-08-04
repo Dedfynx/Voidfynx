@@ -11,6 +11,28 @@ namespace Voidfynx {
 
     Application* Application::s_Instance = nullptr;
 
+    static GLenum ShaderDataTypeToOpenGL(ShaderDataType type) {
+        switch (type) {
+            case ShaderDataType::Float:
+            case ShaderDataType::Float2:
+            case ShaderDataType::Float3:
+            case ShaderDataType::Float4:
+            case ShaderDataType::Mat3:
+            case ShaderDataType::Mat4:
+                return GL_FLOAT;
+            case ShaderDataType::Int:
+            case ShaderDataType::Int2:
+            case ShaderDataType::Int3:
+            case ShaderDataType::Int4:
+                return GL_INT;
+            case ShaderDataType::Bool:
+                return GL_BOOL;
+            default:
+                VF_CORE_ASSERT(false, "Unknown ShaderDataType!");
+                return 0;
+        }
+    }
+
     Application::Application() {
         VF_CORE_ASSERT(!s_Instance, "Application already exist");
         s_Instance = this;
@@ -24,17 +46,30 @@ namespace Voidfynx {
         glGenVertexArrays(1, &m_VertexArray);
         glBindVertexArray(m_VertexArray);
 
-        float vertices[3][3] = {
-            {-0.5f, -0.5f, 0.0f},
-            {0.5f, -0.5f, 0.0f},
-            {0.0f, 0.5f, 0.0f},
+        float vertices[3][7] = {
+            {-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f},
+            {0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f},
+            {0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f},
         };
 
         m_VertexBuffer.reset(VertexBuffer::Create(*vertices, sizeof(vertices)));
-        // m_VertexBuffer = std::unique_ptr<VertexBuffer>(VertexBuffer::Create(*vertices, sizeof(vertices)));
 
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+        BufferLayout layout = {
+            {ShaderDataType::Float3, "position"},
+            {ShaderDataType::Float4, "color"}};
+
+        uint32_t index = 0;
+        for (const auto& element : layout) {
+            glEnableVertexAttribArray(index);
+            glVertexAttribPointer(index,
+                element.GetComponentCount(),
+                ShaderDataTypeToOpenGL(element.type),
+                element.normalized ? GL_TRUE : GL_FALSE,
+                layout.GetStride(),
+                reinterpret_cast<const void*>(element.offset));
+
+            index++;
+        }
 
         uint32_t indices[3] = {0, 1, 2};
         m_IndexBuffer.reset(IndexBuffer::Create(indices, std::size(indices)));
@@ -43,10 +78,13 @@ namespace Voidfynx {
             #version 330 core
 
             layout(location = 0) in vec3 position;
+            layout(location = 1) in vec4 color;
             out vec3 vPosition;
+            out vec4 vColor;
             void main(){
                 gl_Position = vec4(position,1.0);
                 vPosition = position;
+                vColor = color;
             }
         )";
 
@@ -56,9 +94,10 @@ namespace Voidfynx {
             layout(location = 0) out vec4 color;
 
             in vec3 vPosition;
+            in vec4 vColor;
 
             void main(){
-                color = vec4(vPosition * 0.5 + 0.5,1.0);
+                color = vColor;
             }
         )";
 
