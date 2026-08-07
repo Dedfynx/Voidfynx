@@ -11,28 +11,6 @@ namespace Voidfynx {
 
     Application* Application::s_Instance = nullptr;
 
-    static GLenum ShaderDataTypeToOpenGL(ShaderDataType type) {
-        switch (type) {
-            case ShaderDataType::Float:
-            case ShaderDataType::Float2:
-            case ShaderDataType::Float3:
-            case ShaderDataType::Float4:
-            case ShaderDataType::Mat3:
-            case ShaderDataType::Mat4:
-                return GL_FLOAT;
-            case ShaderDataType::Int:
-            case ShaderDataType::Int2:
-            case ShaderDataType::Int3:
-            case ShaderDataType::Int4:
-                return GL_INT;
-            case ShaderDataType::Bool:
-                return GL_BOOL;
-            default:
-                VF_CORE_ASSERT(false, "Unknown ShaderDataType!");
-                return 0;
-        }
-    }
-
     Application::Application() {
         VF_CORE_ASSERT(!s_Instance, "Application already exist");
         s_Instance = this;
@@ -43,36 +21,41 @@ namespace Voidfynx {
         m_ImGuiLayer = new ImGuiLayer();
         PushOverlay(m_ImGuiLayer);
 
-        glGenVertexArrays(1, &m_VertexArray);
-        glBindVertexArray(m_VertexArray);
+        m_VertexArray.reset(VertexArray::Create());
 
         float vertices[3][7] = {
             {-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f},
             {0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f},
-            {0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f},
+            {0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f},
         };
 
-        m_VertexBuffer.reset(VertexBuffer::Create(*vertices, sizeof(vertices)));
+        std::shared_ptr<VertexBuffer> triangleVB(VertexBuffer::Create(*vertices, sizeof(vertices)));
 
         BufferLayout layout = {
             {ShaderDataType::Float3, "position"},
             {ShaderDataType::Float4, "color"}};
 
-        uint32_t index = 0;
-        for (const auto& element : layout) {
-            glEnableVertexAttribArray(index);
-            glVertexAttribPointer(index,
-                element.GetComponentCount(),
-                ShaderDataTypeToOpenGL(element.type),
-                element.normalized ? GL_TRUE : GL_FALSE,
-                layout.GetStride(),
-                reinterpret_cast<const void*>(element.offset));
-
-            index++;
-        }
+        triangleVB->SetLayout(layout);
+        m_VertexArray->AddVertexBuffer(triangleVB);
 
         uint32_t indices[3] = {0, 1, 2};
-        m_IndexBuffer.reset(IndexBuffer::Create(indices, std::size(indices)));
+        std::shared_ptr<IndexBuffer> triangleIB(IndexBuffer::Create(indices, std::size(indices)));
+        m_VertexArray->AddIndexBuffer(triangleIB);
+
+        m_SquareVertexArray.reset(VertexArray::Create());
+        float squareVertices[4][7] = {
+            {-0.75f, -0.75f, 0.0f, 0.2f, 0.2f, 0.2f, 1.0f},
+            {0.75f, -0.75f, 0.0f, 0.2f, 0.2f, 0.2f, 1.0f},
+            {0.75f, 0.75f, 0.0f, 0.2f, 0.2f, 0.2f, 1.0f},
+            {-0.75f, 0.75f, 0.0f, 0.2f, 0.2f, 0.2f, 1.0f},
+
+        };
+        std::shared_ptr<VertexBuffer> squareVB(VertexBuffer::Create(*squareVertices, sizeof(squareVertices)));
+        squareVB->SetLayout(layout);
+        m_SquareVertexArray->AddVertexBuffer(squareVB);
+        uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
+        std::shared_ptr<IndexBuffer> squareIB(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+        m_SquareVertexArray->AddIndexBuffer(squareIB);
 
         const std::string vertexSource = R"(
             #version 330 core
@@ -117,9 +100,12 @@ namespace Voidfynx {
             glClear(GL_COLOR_BUFFER_BIT);
 
             m_Shader->bind();
+            m_SquareVertexArray->Bind();
+            glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
-            glBindVertexArray(m_VertexArray);
-            glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+            m_Shader->bind();
+            m_VertexArray->Bind();
+            glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
             for (Layer* layer : m_LayerStack) {
                 layer->OnUpdate();
             }

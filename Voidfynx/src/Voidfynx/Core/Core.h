@@ -11,7 +11,9 @@
     #define VF_API
 #endif
 
-#ifdef VF_DEBUG
+#ifdef VF_ENABLE_DEBUG
+
+    #include "Voidfynx/Core/Log.h"
     #if defined(VF_PLATFORM_WINDOWS)
         #define VF_DEBUGBREAK() __debugbreak()
     #elif defined(VF_PLATFORM_LINUX)

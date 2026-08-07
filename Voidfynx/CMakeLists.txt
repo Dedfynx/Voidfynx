@@ -96,8 +96,8 @@ if (VF_ENABLE_LOGGING)
     target_compile_definitions(Voidfynx PUBLIC VF_ENABLE_LOGGING)
 endif ()
 
-if (VF_ENABLE_ASSERTS)
-    target_compile_definitions(Voidfynx PUBLIC VF_ENABLE_ASSERTS)
+if (VF_ENABLE_DEBUG)
+    target_compile_definitions(Voidfynx PUBLIC VF_ENABLE_DEBUG)
 endif ()
 
 
