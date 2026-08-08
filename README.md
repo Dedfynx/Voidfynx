@@ -34,7 +34,7 @@ Projet de Moteur de Jeux en C++
     - [ ] Vulkan
     - [ ] DirectX
 - [x] Shaders
-    - [ ] GLSL
+    - [X] GLSL
     - [ ] HLSL
     - [ ] SPIR-V
 
