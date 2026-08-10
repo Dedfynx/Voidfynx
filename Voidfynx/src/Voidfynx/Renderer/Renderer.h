@@ -4,19 +4,18 @@
 
 #pragma once
 
+#include "Voidfynx\Renderer\RenderCommand.h"
+
 namespace Voidfynx {
-
-    enum class RendererAPI {
-        None = 0,
-        OpenGL = 1
-    };
-
     class Renderer {
        public:
-        inline static RendererAPI GetAPI() { return Renderer::CurrentRendererAPI; }
+        static void BeginScene();
+        static void EndScene();
+
+        static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+        inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
        private:
-        static RendererAPI CurrentRendererAPI;
     };
 
 }  // namespace Voidfynx

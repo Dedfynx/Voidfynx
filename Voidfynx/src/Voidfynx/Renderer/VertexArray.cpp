@@ -9,10 +9,10 @@
 namespace Voidfynx {
     VertexArray* VertexArray::Create() {
         switch (Renderer::GetAPI()) {
-            case RendererAPI::None:
-                VF_CORE_ASSERT(false, "RendererAPI::None is not supported!");
+            case RendererAPI::API::None:
+                VF_CORE_ASSERT(false, "RendererAPI::API::None is not supported!");
                 return nullptr;
-            case RendererAPI::OpenGL:
+            case RendererAPI::API::OpenGL:
                 return new OpenGLVertexArray();
             default:
                 VF_CORE_ASSERT(false, "Unknown RendererAPI!");

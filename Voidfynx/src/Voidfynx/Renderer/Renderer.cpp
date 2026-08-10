@@ -5,5 +5,12 @@
 #include "Voidfynx/Renderer/Renderer.h"
 
 namespace Voidfynx {
-    RendererAPI Renderer::CurrentRendererAPI = RendererAPI::OpenGL;
+    void Renderer::BeginScene() {
+    }
+    void Renderer::EndScene() {
+    }
+    void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray) {
+        vertexArray->Bind();
+        RenderCommand::DrawIndex(vertexArray);
+    }
 }  // namespace Voidfynx

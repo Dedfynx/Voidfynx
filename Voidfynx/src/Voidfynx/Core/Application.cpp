@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "Voidfynx/Core/Input.h"
+#include "Voidfynx/Renderer/Renderer.h"
 
 namespace Voidfynx {
 
@@ -96,16 +97,19 @@ namespace Voidfynx {
         VF_CORE_ERROR("Erreur");
         //
         while (m_Running) {
-            glClearColor(0.1f, 0.1f, 0.1f, 1);
-            glClear(GL_COLOR_BUFFER_BIT);
+            RenderCommand::SetClearColor({0.1f, 0.6f, 0.1f, 1});
+            RenderCommand::Clear();
+
+            Renderer::BeginScene();
 
             m_Shader->bind();
-            m_SquareVertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::Submit(m_SquareVertexArray);
 
             m_Shader->bind();
-            m_VertexArray->Bind();
-            glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::Submit(m_VertexArray);
+
+            Renderer::EndScene();
+
             for (Layer* layer : m_LayerStack) {
                 layer->OnUpdate();
             }
