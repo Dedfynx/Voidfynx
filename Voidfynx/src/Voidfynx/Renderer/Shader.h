@@ -3,6 +3,8 @@
 //
 
 #pragma once
+#include "glm/fwd.hpp"
+
 #include <cstdint>
 #include <string>
 
@@ -14,6 +16,8 @@ namespace Voidfynx {
 
         void bind() const;
         void unbind() const;
+
+        void UploadUniformMat4(const std::string& uniformName, const glm::mat4& matrix);
 
        private:
         uint32_t m_RendererID;

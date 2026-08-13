@@ -5,6 +5,8 @@
 #include "vf_pch.h"
 #include "Shader.h"
 
+#include "glm/gtc/type_ptr.hpp"
+
 #include <glad/glad.h>
 
 namespace Voidfynx {
@@ -123,5 +125,14 @@ namespace Voidfynx {
     }
     void Shader::unbind() const {
         glUseProgram(0);
+    }
+    void Shader::UploadUniformMat4(const std::string &uniformName, const glm::mat4 &matrix) {
+        glUseProgram(m_RendererID);
+        GLint location = glGetUniformLocation(m_RendererID, uniformName.c_str());
+        if (location == -1) {
+            VF_CORE_ERROR("Shader uniform '{0}' not found", uniformName);
+            return;
+        }
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
     }
 }  // namespace Voidfynx
