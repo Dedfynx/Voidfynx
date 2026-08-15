@@ -11,38 +11,6 @@ class ExampleLayer : public Voidfynx::Layer {
             {Voidfynx::ShaderDataType::Float3, "position"},
             {Voidfynx::ShaderDataType::Float4, "color"}};
 
-        m_VertexArray.reset(Voidfynx::VertexArray::Create());
-
-        float vertices[3][7] = {
-            {-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f},
-            {0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f},
-            {0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f},
-        };
-
-        std::shared_ptr<Voidfynx::VertexBuffer> triangleVB(Voidfynx::VertexBuffer::Create(*vertices, sizeof(vertices)));
-
-        triangleVB->SetLayout(layout);
-        m_VertexArray->AddVertexBuffer(triangleVB);
-
-        uint32_t indices[3] = {0, 1, 2};
-        std::shared_ptr<Voidfynx::IndexBuffer> triangleIB(Voidfynx::IndexBuffer::Create(indices, std::size(indices)));
-        m_VertexArray->AddIndexBuffer(triangleIB);
-
-        m_SquareVertexArray.reset(Voidfynx::VertexArray::Create());
-        float squareVertices[4][7] = {
-            {-0.75f, -0.75f, 0.0f, 0.2f, 0.2f, 0.2f, 1.0f},
-            {0.75f, -0.75f, 0.0f, 0.8f, 0.8f, 0.8f, 1.0f},
-            {0.75f, 0.75f, 0.0f, 0.2f, 0.2f, 0.2f, 1.0f},
-            {-0.75f, 0.75f, 0.0f, 0.8f, 0.8f, 0.8f, 1.0f},
-
-        };
-        std::shared_ptr<Voidfynx::VertexBuffer> squareVB(Voidfynx::VertexBuffer::Create(*squareVertices, sizeof(squareVertices)));
-        squareVB->SetLayout(layout);
-        m_SquareVertexArray->AddVertexBuffer(squareVB);
-        uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
-        std::shared_ptr<Voidfynx::IndexBuffer> squareIB(Voidfynx::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
-        m_SquareVertexArray->AddIndexBuffer(squareIB);
-
         m_cubeVertexArray.reset(Voidfynx::VertexArray::Create());
         float cubeVertices[8][7] = {
             // Front
@@ -103,34 +71,32 @@ class ExampleLayer : public Voidfynx::Layer {
         m_Shader = std::make_unique<Voidfynx::Shader>(vertexSource, fragmentSource);
     }
 
-    void OnUpdate() override {
+    void OnUpdate(Voidfynx::Timestep delta) override {
+        // VF_TRACE("Delta = {0}, {1}", delta.GetSeconds(), delta.GetMilliseconds());
+
         if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::A)) {
-            m_CameraPosition.x -= m_CameraMoveSpeed;
+            m_CameraPosition.x -= m_CameraMoveSpeed * delta;
         } else if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::D)) {
-            m_CameraPosition.x += m_CameraMoveSpeed;
+            m_CameraPosition.x += m_CameraMoveSpeed * delta;
         }
         if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::W)) {
-            m_CameraPosition.y += m_CameraMoveSpeed;
+            m_CameraPosition.y += m_CameraMoveSpeed * delta;
         } else if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::S)) {
-            m_CameraPosition.y -= m_CameraMoveSpeed;
+            m_CameraPosition.y -= m_CameraMoveSpeed * delta;
         }
         if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::Q)) {
-            m_CameraRotation += m_CameraRotationSpeed;
+            m_CameraRotation += m_CameraRotationSpeed * delta;
         } else if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::E)) {
-            m_CameraRotation -= m_CameraRotationSpeed;
+            m_CameraRotation -= m_CameraRotationSpeed * delta;
         }
 
         Voidfynx::RenderCommand::SetClearColor({0.1f, 0.6f, 0.1f, 1});
         Voidfynx::RenderCommand::Clear();
 
-        // m_Camera.SetPosition({0.5f, 0.5f, -0.5f});
-        // m_Camera.SetRotation(45.f);
         m_Camera.SetPosition(m_CameraPosition);
         m_Camera.SetRotation(m_CameraRotation);
         Voidfynx::Renderer::BeginScene(m_Camera);
 
-        // Renderer::Submit(m_SquareVertexArray);
-        // Renderer::Submit(m_VertexArray);
         Voidfynx::Renderer::Submit(m_cubeVertexArray, m_Shader);
 
         Voidfynx::Renderer::EndScene();
@@ -147,13 +113,11 @@ class ExampleLayer : public Voidfynx::Layer {
 
    private:
     std::shared_ptr<Voidfynx::Shader> m_Shader;
-    std::shared_ptr<Voidfynx::VertexArray> m_VertexArray;
-    std::shared_ptr<Voidfynx::VertexArray> m_SquareVertexArray;
     std::shared_ptr<Voidfynx::VertexArray> m_cubeVertexArray;
 
     Voidfynx::OrthographicCamera m_Camera;
     glm::vec3 m_CameraPosition;
-    float m_CameraMoveSpeed = .1f;
+    float m_CameraMoveSpeed = 1.f;
     float m_CameraRotation = 0.0f;
-    float m_CameraRotationSpeed = 2.f;
+    float m_CameraRotationSpeed = 20.f;
 };

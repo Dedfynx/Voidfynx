@@ -10,11 +10,15 @@ static const char* level_str[] = {
     "INFO ",
     "WARN ",
     "ERROR",
+    "TRACE",
+    "FATAL",
 };
 static fmt::color level_color[] = {
     fmt::color::green,
     fmt::color::cyan,
     fmt::color::yellow,
+    fmt::color::red,
+    fmt::color::magenta,
     fmt::color::red,
 };
 

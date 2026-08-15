@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Voidfynx/Core/Timestep.h"
 #include "Voidfynx/Core/Core.h"
 #include "Voidfynx/Event/Event.h"
 
@@ -11,7 +12,7 @@ namespace Voidfynx {
 
         virtual void OnAttach() {}
         virtual void OnDetach() {}
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(Timestep delta) {}
         virtual void OnImGuiRender() {}
         virtual void OnEvent(Event& event) {}
 

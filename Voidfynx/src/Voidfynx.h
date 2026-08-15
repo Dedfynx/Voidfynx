@@ -6,6 +6,8 @@
 #include "Voidfynx/Core/Log.h"
 #include "Voidfynx/Core/Layer.h"
 
+#include "Voidfynx/Core/Timestep.h"
+
 #include "Voidfynx/Core/Input.h"
 #include "Voidfynx/Core/MouseCode.h"
 #include "Voidfynx/Core/KeyCode.h"
