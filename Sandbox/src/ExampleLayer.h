@@ -2,11 +2,12 @@
 
 #include "imgui.h"
 #include "Voidfynx.h"
+#include "glm/ext/matrix_transform.hpp"
 
 class ExampleLayer : public Voidfynx::Layer {
    public:
     ExampleLayer()
-        : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.f) {
+        : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.f), m_CubePosition(0.f) {
         Voidfynx::BufferLayout layout = {
             {Voidfynx::ShaderDataType::Float3, "position"},
             {Voidfynx::ShaderDataType::Float4, "color"}};
@@ -45,11 +46,13 @@ class ExampleLayer : public Voidfynx::Layer {
             layout(location = 1) in vec4 color;
 
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
+
 
             out vec3 vPosition;
             out vec4 vColor;
             void main(){
-                gl_Position = u_ViewProjection * vec4(position,1.0);
+                gl_Position = u_ViewProjection * u_Transform * vec4(position,1.0);
                 vPosition = position;
                 vColor = color;
             }
@@ -90,6 +93,17 @@ class ExampleLayer : public Voidfynx::Layer {
             m_CameraRotation -= m_CameraRotationSpeed * delta;
         }
 
+        if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::I)) {
+            m_CubePosition.y += m_CubeMoveSpeed * delta;
+        } else if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::K)) {
+            m_CubePosition.y -= m_CubeMoveSpeed * delta;
+        }
+        if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::J)) {
+            m_CubePosition.x += m_CubeMoveSpeed * delta;
+        } else if (Voidfynx::Input::IsKeyPressed(Voidfynx::Key::L)) {
+            m_CubePosition.x -= m_CubeMoveSpeed * delta;
+        }
+
         Voidfynx::RenderCommand::SetClearColor({0.1f, 0.6f, 0.1f, 1});
         Voidfynx::RenderCommand::Clear();
 
@@ -97,7 +111,9 @@ class ExampleLayer : public Voidfynx::Layer {
         m_Camera.SetRotation(m_CameraRotation);
         Voidfynx::Renderer::BeginScene(m_Camera);
 
-        Voidfynx::Renderer::Submit(m_cubeVertexArray, m_Shader);
+        glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_CubePosition);
+
+        Voidfynx::Renderer::Submit(m_cubeVertexArray, m_Shader, transform);
 
         Voidfynx::Renderer::EndScene();
     }
@@ -120,4 +136,7 @@ class ExampleLayer : public Voidfynx::Layer {
     float m_CameraMoveSpeed = 1.f;
     float m_CameraRotation = 0.0f;
     float m_CameraRotationSpeed = 20.f;
+
+    glm::vec3 m_CubePosition;
+    float m_CubeMoveSpeed = 1.f;
 };

@@ -12,9 +12,10 @@ namespace Voidfynx {
     }
     void Renderer::EndScene() {
     }
-    void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& shader) {
+    void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& shader, const glm::mat4& transform) {
         shader->bind();
         shader->UploadUniformMat4("u_ViewProjection", m_SceneData->viewProjectionMatrix);
+        shader->UploadUniformMat4("u_Transform", transform);
         vertexArray->Bind();
         RenderCommand::DrawIndex(vertexArray);
     }
